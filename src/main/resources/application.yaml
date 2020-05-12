@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    url:
+    username:
+    password:
+    driver-class-name: org.postgresql.Driver
+  mvc:
+    view:
+      prefix: /WEB-INF/JSP/
+      suffix: .jsp
+youtube:
+  APIkey:
