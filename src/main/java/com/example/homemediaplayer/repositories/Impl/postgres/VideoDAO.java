@@ -85,8 +85,19 @@ public class VideoDAO implements VideoRepository {
                 "views, " +
                 "eTag, " +
                 "youtubeId, " +
-                "channelId) " +
-                "Values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                "channel_Id) " +
+                "Values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)" +
+                "on conflict (youtubeId) do update set " +
+                "name = EXCLUDED.name, " +
+                "description = EXCLUDED.description, " +
+                "date = EXCLUDED.date, " +
+                "duration = EXCLUDED.duration, " +
+                "likes = EXCLUDED.likes, " +
+                "dislikes = EXCLUDED.dislikes, " +
+                "views = EXCLUDED.views, " +
+                "eTag = EXCLUDED.eTag, " +
+                "youtubeId = EXCLUDED.youtubeId," +
+                "channel_Id = EXCLUDED.channel_Id ";
         jdbcTemplate.update(INSERT,
                 videoDTO.getName(),
                 videoDTO.getDescription(),
@@ -96,7 +107,8 @@ public class VideoDAO implements VideoRepository {
                 videoDTO.getDislikes(),
                 videoDTO.getViews(),
                 videoDTO.getETag(),
-                videoDTO.getYoutubeId());
+                videoDTO.getYoutubeId(),
+                videoDTO.getChannelId());
     }
 
     @Override
@@ -111,7 +123,6 @@ public class VideoDAO implements VideoRepository {
                 "views = ?, " +
                 "eTag = ?, " +
                 "youtubeId = ?, " +
-                "channelId = ?," +
                 "where id = ?;";
         jdbcTemplate.update(UPDATE,
                 videoDTO.getName(),

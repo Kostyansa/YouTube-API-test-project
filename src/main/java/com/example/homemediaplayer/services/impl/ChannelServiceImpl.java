@@ -35,7 +35,7 @@ public class ChannelServiceImpl implements ChannelService {
     }
 
     @Override
-    public void saveChannel(ChannelDTO channelDTO) {
-        channelRepository.createChannel(channelDTO);
+    public int saveChannel(ChannelDTO channelDTO) {
+        return channelRepository.createChannel(channelDTO);
     }
 }

@@ -10,6 +10,6 @@ public interface ChannelRepository {
     ChannelDTO getChannel(Long id);
     ChannelDTO getChannel(String youtubeId);
     void updateChannel(ChannelDTO channelDTO);
-    void createChannel(ChannelDTO channelDTO);
+    int createChannel(ChannelDTO channelDTO);
     void deleteChannel(Long id);
 }

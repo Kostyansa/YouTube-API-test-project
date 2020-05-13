@@ -67,7 +67,7 @@ public class TagDAO implements TagRepository {
     @Override
     public void insertTag(String... values) {
         String INSERT = "insert into player.tag(value) Values";
-        String INSERT_ON_CONFLICT = "on conflict do nothing;";
+        String INSERT_ON_CONFLICT = "on conflict(value) do nothing;";
         String query = INSERT + "(?),".repeat(Math.max(0, values.length - 1)) +
                 "(?) " +
                 INSERT_ON_CONFLICT;

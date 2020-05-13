@@ -1,5 +1,6 @@
 package com.example.homemediaplayer.services;
 
+import com.example.homemediaplayer.entity.ChannelDTO;
 import com.google.api.services.youtube.model.PlaylistItem;
 import com.google.api.services.youtube.model.PlaylistItemListResponse;
 
@@ -12,7 +13,7 @@ public interface UpdateService {
 
     void newChannel(String id);
 
-    void addVideosFromPlaylist(PlaylistItemListResponse playlist, String id, Long channelId) throws IOException;
+    void addVideosFromPlaylist(PlaylistItemListResponse playlist, String id, ChannelDTO channel) throws IOException;
 
-    void addVideos(List<PlaylistItem> items, Long channelId) throws IOException;
+    void addVideos(List<PlaylistItem> items, ChannelDTO channel) throws IOException;
 }

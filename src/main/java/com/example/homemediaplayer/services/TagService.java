@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface TagService {
 
-    void saveTag(String tag);
+    void saveTags(String... tag);
 
     List<Tag> getTags();
 

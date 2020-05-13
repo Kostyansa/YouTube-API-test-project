@@ -16,7 +16,7 @@ public class TagServiceImpl implements TagService {
     private final TagRepository tagRepository;
 
     @Override
-    public void saveTag(String tag) {
+    public void saveTags(String... tag) {
         tagRepository.insertTag(tag);
     }
 

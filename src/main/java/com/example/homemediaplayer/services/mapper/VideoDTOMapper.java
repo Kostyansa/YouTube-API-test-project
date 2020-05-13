@@ -14,7 +14,7 @@ public class VideoDTOMapper {
     //Fuck google
     private DateTimeFormatter f = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
-    public VideoDTO toVideoDTO(Video video){
+    public VideoDTO toVideoDTO(Video video, Long channelId){
         return new VideoDTO(
                 null,
                 video.getSnippet().getTitle(),
@@ -26,7 +26,7 @@ public class VideoDTOMapper {
                 video.getStatistics().getViewCount().longValue(),
                 video.getEtag(),
                 video.getId(),
-                null
+                channelId
         );
     }
 }

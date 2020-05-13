@@ -22,6 +22,7 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	implementation 'org.springframework.boot:spring-boot-starter-tomcat'
 	runtime 'javax.servlet:jstl'
 	runtime 'org.apache.tomcat.embed:tomcat-embed-jasper'
 	runtime 'ch.qos.logback:logback-classic:1.2.3'

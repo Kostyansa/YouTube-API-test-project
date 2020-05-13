@@ -71,10 +71,10 @@ public class ChannelDAO implements ChannelRepository {
     }
 
     @Override
-    public void createChannel(ChannelDTO channelDTO) {
+    public int createChannel(ChannelDTO channelDTO) {
         String INSERT = "insert into player.channel(name, description, eTag, youtubeId, uploadedId, uploadedETag) " +
-                "Values(?, ?, ?, ?, ?, ?)";
-        jdbcTemplate.update(INSERT,
+                "Values(?, ?, ?, ?, ?, ?) on conflict (youtubeId) do nothing";
+        return jdbcTemplate.update(INSERT,
                 channelDTO.getName(),
                 channelDTO.getDescription(),
                 channelDTO.getETag(),

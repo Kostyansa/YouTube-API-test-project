@@ -1,9 +1,9 @@
 spring:
   datasource:
-    url:
-    username:
-    password:
-    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/
+    username: postgres
+    password: postgres
+  driver-class-name: org.postgresql.Driver
   mvc:
     view:
       prefix: /WEB-INF/JSP/

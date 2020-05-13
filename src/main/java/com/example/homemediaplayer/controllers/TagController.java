@@ -18,6 +18,7 @@ public class TagController {
     @GetMapping("/tags")
     public ModelAndView getTags(){
         ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("tags");
         List<Tag> tags = tagService.getTags();
         modelAndView.addObject(tags);
         return modelAndView;

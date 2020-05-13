@@ -2,7 +2,7 @@ start transaction;
 
 create schema "player";
 
-create table player.channel{
+create table player.channel(
     id serial primary key,
     name varchar(2048),
     description text,
@@ -10,9 +10,9 @@ create table player.channel{
     youtubeId varchar(256) unique not null,
     uploadedId varchar(256) unique not null,
     uploadedETag varchar(256)
-}
+);
 
-create table player.video{
+create table player.video(
     id serial primary key,
     name varchar(2048),
     description text,
@@ -24,17 +24,17 @@ create table player.video{
     eTag varchar(256),
     youtubeId varchar(256) unique not null,
     channel_id int references player.channel(id) on delete cascade
-}
+);
 
-create table player.tag{
+create table player.tag(
     id serial primary key,
-    value varchar(512)
-}
+    value varchar(512) not null unique
+);
 
-create table player.channel_has_tag{
+create table player.channel_has_tag(
     video_id int references player.video(id),
     tag_id int references player.tag(id)
-}
+);
 
 commit;
 

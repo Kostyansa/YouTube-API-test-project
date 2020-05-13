@@ -14,5 +14,5 @@ public interface ChannelService {
 
     void updateChannel(ChannelDTO channelDTO);
 
-    void saveChannel(ChannelDTO channelDTO);
+    int saveChannel(ChannelDTO channelDTO);
 }

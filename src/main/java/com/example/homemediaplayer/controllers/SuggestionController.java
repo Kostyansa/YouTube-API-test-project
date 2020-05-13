@@ -8,6 +8,7 @@ import com.example.homemediaplayer.services.TagService;
 import com.example.homemediaplayer.services.VideoService;
 import com.example.homemediaplayer.services.YoutubeService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +20,7 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class SuggestionController {
 
     private final SuggestionService suggestionService;
@@ -27,6 +29,7 @@ public class SuggestionController {
 
     @GetMapping("/")
     public ModelAndView getRoot(){
+        log.trace("After Mapping {}", this);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("home");
         return modelAndView;
