@@ -5,15 +5,16 @@
 <html>
     <head>
         <title>HomeMedia Player: videos</title>
+        <link href="../CSS/videos.css" rel="stylesheet" type="text/css"><meta charset="utf-8"/>
     </head>
     <body>
         <a href = "/">home</a>
+        <div>${errorMsg}</div>
         <c:forEach var="video" items="${videos}">
-            <p>There should be a video</p>
             <a href = https://www.youtube.com/watch?v=${video.getYoutubeId()}>
                 <h3>${video.getName()}</h3>
-                <p>${video.getDescription()}</p>
             </a>
+            <div class="description-text">${video.getDescription()}</div>
         </c:forEach>
     </body>
 </html>

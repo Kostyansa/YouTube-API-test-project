@@ -86,6 +86,10 @@ public class SuggestionController {
 
         List<VideoDTO> videos = null;
         List<Tag> tags = tagService.getTagsByNames(tag);
+        if (tags.isEmpty()){
+            modelAndView.addObject("errorMsg", "There is no videos with this tag");
+            return modelAndView;
+        }
         if (mode.equals("Controversial")) {
             videos = suggestionService.getTop5ControversialSuggestedVideos(
                     tags,
@@ -98,7 +102,7 @@ public class SuggestionController {
                     Duration.ofHours(hours).plus(Duration.ofMinutes(minutes)).plus(Duration.ofSeconds(seconds))
             );
         }
-        modelAndView.addObject(videos);
+        modelAndView.addObject("videos", videos);
         return modelAndView;
     }
 }

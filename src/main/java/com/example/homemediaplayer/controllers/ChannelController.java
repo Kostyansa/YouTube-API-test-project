@@ -23,14 +23,14 @@ public class ChannelController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("channels");
         List<ChannelDTO> channels = channelService.getChannels();
-                modelAndView.addObject(channels);
+                modelAndView.addObject("channels", channels);
         return modelAndView;
     }
 
     @PostMapping("/channels")
     public ModelAndView postChannel(@RequestParam String youtubeId){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("channels");
+        modelAndView.setViewName("redirect:/channels");
         updateService.newChannel(youtubeId);
         return modelAndView;
     }

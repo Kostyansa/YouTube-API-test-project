@@ -20,7 +20,7 @@ public class TagController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("tags");
         List<Tag> tags = tagService.getTags();
-        modelAndView.addObject(tags);
+        modelAndView.addObject("tags", tags);
         return modelAndView;
     }
 }
