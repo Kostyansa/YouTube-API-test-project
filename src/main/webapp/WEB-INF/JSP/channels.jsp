@@ -16,7 +16,7 @@
     <div>
         <a href = "/">home</a>
         <c:forEach var="channel" items="${channels}">
-            <p>${channel.name}</p>
+            <p>${channel.getName()}</p>
         </c:forEach>
     </div>
     </body>

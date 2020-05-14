@@ -4,6 +4,7 @@ import com.example.homemediaplayer.entity.Tag;
 import com.example.homemediaplayer.entity.VideoDTO;
 import com.example.homemediaplayer.repositories.VideoRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import java.sql.Timestamp;
 import java.time.Duration;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor
@@ -39,17 +41,17 @@ public class VideoDAO implements VideoRepository {
                 "likes, dislikes, views, " +
                 "eTag, youtubeId, channel_id " +
                 "from player.video where id in (" +
-                "select video_id from video_has_tag where tag_id in (");
+                "select video_id from player.video_has_tag where tag_id in (");
         for (Tag tag : tags){
             query
                     .append(tag.getId())
             .append(",");
         }
         query.deleteCharAt(query.length() - 1);
-        query.append(") as tags_ids) as video_ids ")
-                .append("order by (likes - 2*dislikes)/(views*(1 + (duration - ?)^2))")
+        query.append(")) ")
+                .append("order by (likes - 2*dislikes)/(views*(1 + (duration - ?)^2)) desc ")
                 .append("limit ?;");
-        return jdbcTemplate.query(query.toString(), rowMapper, limit);
+        return jdbcTemplate.query(query.toString(), rowMapper, duration.toSeconds(), limit);
     }
 
     @Override
@@ -60,17 +62,38 @@ public class VideoDAO implements VideoRepository {
                 "likes, dislikes, views, " +
                 "eTag, youtubeId, channel_id " +
                 "from player.video where id in (" +
-                "select video_id from video_has_tag where tag_id in (");
+                "select video_id from player.video_has_tag where tag_id in (");
         for (Tag tag : tags){
             query
                     .append(tag.getId())
                     .append(",");
         }
         query.deleteCharAt(query.length() - 1);
-        query.append(") as tags_ids) as video_ids ")
-                .append("order by 1/(views*(1 + (duration - ?)^2)*(1 + (likes - 2*dislikes)^2))")
+        query.append(")) ")
+                .append("order by 1/(views*(1 + (duration - ?)^2)*(1 + (likes - 2*dislikes)^2)) desc ")
                 .append("limit ?;");
-        return jdbcTemplate.query(query.toString(), rowMapper, limit);
+        return jdbcTemplate.query(query.toString(), rowMapper, duration.toSeconds(), limit);
+    }
+
+    @Override
+    public VideoDTO getVideoByYoutubeId(String youtubeId) {
+        try {
+            String GET_BY_ID = "select * from player.video where youtubeId = ?";
+            return jdbcTemplate.queryForObject(GET_BY_ID, rowMapper, youtubeId);
+        }
+        catch (EmptyResultDataAccessException exc){
+            return null;
+        }
+    }
+
+    @Override
+    public void createLinksVideoHasTag(VideoDTO videoDTO, List<Tag> tags) {
+        String INSERT_VIDEO_HAS_TAGS =
+                "insert into player.video_has_tag(video_id, tag_id) values "
+                        + ("(" + videoDTO.getId() + ", ?),").repeat(tags.size() - 1)
+                        + "(" + videoDTO.getId() + ", ?) ";
+
+        jdbcTemplate.update(INSERT_VIDEO_HAS_TAGS, tags.stream().map(Tag::getId).toArray());
     }
 
     @Override

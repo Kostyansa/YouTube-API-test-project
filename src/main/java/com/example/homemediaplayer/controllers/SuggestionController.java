@@ -82,20 +82,21 @@ public class SuggestionController {
             @RequestParam Long minutes,
             @RequestParam Long seconds){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("video");
+        modelAndView.setViewName("videos");
 
         List<VideoDTO> videos = null;
+        List<Tag> tags = tagService.getTagsByNames(tag);
         if (mode.equals("Controversial")) {
             videos = suggestionService.getTop5ControversialSuggestedVideos(
-                    tagService.getTagsByNames(tag),
+                    tags,
                     Duration.ofHours(hours).plus(Duration.ofMinutes(minutes)).plus(Duration.ofSeconds(seconds))
             );
         }
         else if (mode.equals("Best")){
             videos = suggestionService.getTop5BestSuggestedVideos(
-                tagService.getTagsByNames(tag),
-                Duration.ofHours(hours).plus(Duration.ofMinutes(minutes)).plus(Duration.ofSeconds(seconds))
-                );
+                    tags,
+                    Duration.ofHours(hours).plus(Duration.ofMinutes(minutes)).plus(Duration.ofSeconds(seconds))
+            );
         }
         modelAndView.addObject(videos);
         return modelAndView;

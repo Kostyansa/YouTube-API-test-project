@@ -31,7 +31,7 @@ create table player.tag(
     value varchar(512) not null unique
 );
 
-create table player.channel_has_tag(
+create table player.video_has_tag(
     video_id int references player.video(id),
     tag_id int references player.tag(id)
 );

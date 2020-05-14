@@ -27,6 +27,16 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
+    public VideoDTO getVideo(String youtubeId) {
+        return videoRepository.getVideoByYoutubeId(youtubeId);
+    }
+
+    @Override
+    public void createVideoHasTags(VideoDTO videoDTO, List<Tag> tags) {
+        videoRepository.createLinksVideoHasTag(videoDTO, tags);
+    }
+
+    @Override
     public void saveVideo(VideoDTO videoDTO) {
         videoRepository.createVideo(videoDTO);
     }

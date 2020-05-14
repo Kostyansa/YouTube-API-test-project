@@ -13,6 +13,10 @@ public interface VideoService {
 
     List<VideoDTO> getBestVideosByTagsAndDuration(List<Tag> tags, Duration duration, Long limit);
 
+    VideoDTO getVideo(String youtubeId);
+
+    void createVideoHasTags(VideoDTO videoDTO, List<Tag> tags);
+
     void saveVideo(VideoDTO videoDTO);
 
     void updateVideo(VideoDTO videoDTO);

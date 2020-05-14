@@ -9,9 +9,10 @@
     <body>
         <a href = "/">home</a>
         <c:forEach var="video" items="${videos}">
-            <a href = https://www.youtube.com/watch?v=${video.youtubeId}>
-                <h3>${video.name}</h3>
-                <p>${video.description}</p>
+            <p>There should be a video</p>
+            <a href = https://www.youtube.com/watch?v=${video.getYoutubeId()}>
+                <h3>${video.getName()}</h3>
+                <p>${video.getDescription()}</p>
             </a>
         </c:forEach>
     </body>

@@ -1,6 +1,8 @@
 package com.example.homemediaplayer.services.impl;
 
 import com.example.homemediaplayer.entity.ChannelDTO;
+import com.example.homemediaplayer.entity.Tag;
+import com.example.homemediaplayer.entity.VideoDTO;
 import com.example.homemediaplayer.services.*;
 import com.example.homemediaplayer.services.mapper.ChannelDTOMapper;
 import com.example.homemediaplayer.services.mapper.VideoDTOMapper;
@@ -78,7 +80,11 @@ public class UpdateServiceImpl implements UpdateService {
             );
             List<String> tags = video.getSnippet().getTags();
             if (tags != null) {
-                tagService.saveTags(video.getSnippet().getTags().toArray(String[]::new));
+                String[] tagsArray = tags.toArray(String[]::new);
+                tagService.saveTags(tagsArray);
+                VideoDTO videoDTO = videoService.getVideo(video.getId());
+                List<Tag> tagsDTO = tagService.getTagsByNames(tagsArray);
+                videoService.createVideoHasTags(videoDTO, tagsDTO);
             }
         }
     }

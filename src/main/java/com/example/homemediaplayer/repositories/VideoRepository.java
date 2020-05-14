@@ -12,6 +12,10 @@ public interface VideoRepository {
 
     List<VideoDTO> getControversialVideosByTagsAndDuration(List<Tag> tags, Duration duration, Long limit);
 
+    VideoDTO getVideoByYoutubeId(String youtubeId);
+
+    void createLinksVideoHasTag(VideoDTO videoDTO, List<Tag> tags);
+
     void createVideo(VideoDTO videoDTO);
 
     void updateVideo(VideoDTO videoDTO);
