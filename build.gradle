@@ -6,8 +6,8 @@ plugins {
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = JavaVersion.VERSION_14
-targetCompatibility = JavaVersion.VERSION_14
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
 
 configurations {
 	compileOnly {
@@ -23,9 +23,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	implementation 'org.springframework.boot:spring-boot-starter-tomcat'
-	runtime 'javax.servlet:jstl'
-	runtime 'org.apache.tomcat.embed:tomcat-embed-jasper'
-	runtime 'ch.qos.logback:logback-classic:1.2.3'
+	runtimeOnly 'javax.servlet:jstl'
+	runtimeOnly 'org.apache.tomcat.embed:tomcat-embed-jasper'
+	runtimeOnly 'ch.qos.logback:logback-classic:1.2.3'
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'org.postgresql:postgresql'
 	annotationProcessor 'org.projectlombok:lombok'
